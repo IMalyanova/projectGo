@@ -1,4 +1,4 @@
-https://go-tour-ru-ru.appspot.com/concurrency/8
+// https://go-tour-ru-ru.appspot.com/concurrency/8  библиотека подключается "golang.org/x/tour/tree"
 
 
 package main
