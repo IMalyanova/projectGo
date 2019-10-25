@@ -1,6 +1,3 @@
-// https://go-tour-ru-ru.appspot.com/concurrency/8  библиотека подключается "golang.org/x/tour/tree"
-
-
 package main
 
 import (
@@ -11,8 +8,8 @@ import (
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
 func Walk(t *tree.Tree, ch chan int) {
-	
-	 for i := 0; i < 10; i++  {
+
+	for i := 0; i < 10; i++  {
 		fmt.Println(<- ch)
 	}
 }
@@ -20,11 +17,11 @@ func Walk(t *tree.Tree, ch chan int) {
 
 // Same determines whether the trees
 // t1 and t2 contain the same values.
-func Same(t1, t2 *tree.Tree) bool{	
+func Same(t1, t2 *tree.Tree) bool{
 	if t1 == t2 {
 		return true
 	} else {
-		return false}	
+		return false}
 }
 
 
