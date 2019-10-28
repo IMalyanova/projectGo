@@ -66,4 +66,22 @@ func Compare(a, b []byte) int {
 		return -1
 	}
 	return 0
-}//================================================
+}
+	//================================================
+
+var t interface{}
+t = functionOfSomeType()
+switch t := t.type){
+default:
+	fmt.Printf("unexpected type %T\n", t)
+case bool:
+	fmt.PrintF("boolean %t\n", t)
+case int:
+	fmt.Printf("integer %d\n", t)
+case *bool:
+	fmt.Printf("pointer to integer %d\n", *t)
+case *int:
+	fmt.Printf("pointer to integer %d\n", *t)
+}
+//================================================
+	
