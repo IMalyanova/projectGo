@@ -53,3 +53,17 @@ func (m MyString) String() string  {
 
 func Printf (format string, v ...interface{}) (n int, err error){}
 //=====================================================
+func Println(v ...interface{})  {
+	std.Output(2, fmt.Sprintln(v...))
+}
+//==================================================
+func  Min(a ...int) int  {
+	min := int(^uint(0) >> 1)
+	for _, i := range a {
+		if i < min {
+			min = i
+		}
+	}
+	return min
+}
+//=====================================================
