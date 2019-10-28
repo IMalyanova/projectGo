@@ -16,7 +16,33 @@ func main() {
 	p := new(SyncedBuffer)
 	var v SyncedBuffer
 	//===========================
-	
+
+
+	type Transform [3][3]float64
+	type LinesOfText [][]byte
+
+	//==================================================
+
+	text := LineOfText{
+		[]byte ("Now is the time"),
+		[]byte ("For all good gophers"),
+		[]byte ("To bring some fun to the party.")
+	}
+
+	//==================================================
+
+	picture := make( [][] uint8, YSize )
+	for i := range picture {
+		picture[i] = make([] uint8, XSize)
+	}
+	//=================================================
+
+	picture := make([][] uint8, YSize)
+	pixels := make([] uint8, XSize * YSize)
+
+	for i := range picture {
+		picture[i], pixels = pixels[ : XSize], pixels[XSize: ]
+	}
 }
 //===============================
 
@@ -96,4 +122,4 @@ func Append( slice, data []byte) []byte {
 	copy( slice[l:], data)
 	return  slice
 }
-
+//==================================================
