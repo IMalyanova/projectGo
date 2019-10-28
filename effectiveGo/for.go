@@ -25,7 +25,7 @@ func main() {
 		}
 	}
 	//	=========================
-	summ: = 0
+
 	for _, value := range array {
 		sum += value
 	}
@@ -34,5 +34,6 @@ func main() {
 		a[i], a [j] = a[j], a[i]
 	}
 	//	===========================
-	
+
+
 }
