@@ -84,4 +84,3 @@ case *int:
 	fmt.Printf("pointer to integer %d\n", *t)
 }
 //================================================
-	
