@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"go/types"
 	"sync"
 )
 
@@ -65,4 +66,34 @@ var p *[]int = new([]int)
 *p = make([]int, 100, 100)
 
 v := make([]int, 100)
+//============================================
+
+func (f* File) Read (buf[] byte)(n int, err error)
+n, err := f.Read( buf[0:32])
+
+
+var n int
+var err error
+for i := 0;  i < 32; i ++ {
+	nbytes, e := f.Read( buf[ i : i + 1])
+	n += nbytes
+	if nbytes == 0 || e != nil {
+		err = e
+		break
+	}
+}
+
+//==============================================
+
+func Append( slice, data []byte) []byte {
+	l := len(slice)
+	if l + len(data) > cap(slice) {
+		newSlice := make([]byte, (l + len(data)) * 2)
+		copy(newSlice, slice)
+		slice = newSlice
+	}
+	slice = slice[ 0: l + len(data)]
+	copy( slice[l:], data)
+	return  slice
+}
 
