@@ -3,7 +3,10 @@ package main
 import (
 	"fmt"
 )
+<<<<<<< HEAD
 //var chanURL = make(chan string)
+=======
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
 
 type Fetcher interface {
 	// Fetch returns the body of URL and
@@ -11,19 +14,28 @@ type Fetcher interface {
 	Fetch(url string) (body string, urls []string, err error)
 }
 
+<<<<<<< HEAD
 
 
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
 func Crawl(url string, depth int, fetcher Fetcher) {
 
+=======
+// Crawl uses fetcher to recursively crawl
+// pages starting with url, to a maximum of depth.
+func Crawl(url string, depth int, fetcher Fetcher) {
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
 	// TODO: Fetch URLs in parallel.
 	// TODO: Don't fetch the same URL twice.
 	// This implementation doesn't do either:
 	if depth <= 0 {
 		return
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
 	body, urls, err := fetcher.Fetch(url)
 	if err != nil {
 		fmt.Println(err)

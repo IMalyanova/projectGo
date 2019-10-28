@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a011794e-e140-46e3-9468-b9f12770dede" name="Default Changelist" comment="">
+<<<<<<< HEAD
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Crawl.go" beforeDir="false" afterPath="$PROJECT_DIR$/Crawl.go" afterDir="false" />
     </list>
@@ -57,6 +61,7 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="466" y="121" width="424" height="479" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1571948928461" />
+<<<<<<< HEAD
     <state width="1324" height="8" key="GridCell.Tab.0.bottom" timestamp="1572249686957">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -73,6 +78,24 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1324" height="8" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1572249686957" />
+=======
+    <state width="1324" height="251" key="GridCell.Tab.0.bottom" timestamp="1571995262618">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1324" height="251" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1571995262618" />
+    <state width="1324" height="251" key="GridCell.Tab.0.center" timestamp="1571995262615">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1324" height="251" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1571995262615" />
+    <state width="1324" height="251" key="GridCell.Tab.0.left" timestamp="1571995262613">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1324" height="251" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1571995262613" />
+    <state width="1324" height="251" key="GridCell.Tab.0.right" timestamp="1571995262617">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1324" height="251" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1571995262617" />
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
     <state width="1324" height="251" key="GridCell.Tab.1.bottom" timestamp="1571995230417">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -89,9 +112,33 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1324" height="251" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1571995230416" />
+<<<<<<< HEAD
     <state x="526" y="76" width="304" height="568" key="RollbackChangesDialog" timestamp="1572209254509">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="526" y="76" width="304" height="568" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1572209254509" />
+=======
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/Crawl.go</url>
+          <line>17</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/Crawl.go</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/Crawl.go</url>
+          <line>6</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+>>>>>>> 2127c86ed80f115240f875e7ce16a804178acd2d
   </component>
 </project>
