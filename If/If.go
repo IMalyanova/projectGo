@@ -14,6 +14,6 @@ func main() {
 	codeUsing (f)
 }
 
-func codeUsing(f interface{}) {
+
 
 }
