@@ -1,11 +1,24 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
+
+type Stringer interface {
+	String() string
+}
+var value interface{}
 
 func main() {
-	
+	switch str := value.(type) {
+	case string:
+		return str
+	case Stringer:
+		return str.String()
+	}
 }
-
+//====================================
 type Sequence []int
 
 func (s Sequence) Len() int {
@@ -38,4 +51,20 @@ func(s Sequence) String() string {
 	}
 	return str + "]"
 }
-//=======================================
+//==Conversions===================
+
+func  (s Sequence) String() string  {
+	s = s.Copy()
+	sort.Sort(s)
+	return fmt.Sprint([]int(s))
+}
+//=================================
+
+func  (s Sequence) String() string  {
+	s = s.Copy()
+	sort.IntSlice(s).Sort()
+	return fmt.Sprint([]int(s))
+}
+
+//=================================
+
