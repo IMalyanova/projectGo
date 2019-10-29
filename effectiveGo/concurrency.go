@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"net/rpc"
 	"time"
@@ -129,7 +130,37 @@ func handle(queue chan *Request){
 	}
 }
 
-//=======Parallelization
+//=======leaky buffer
+var freeList = make(chan *Buffer, 100)
+var serverChan = make(chan *Buffer)
+
+func  client()  {
+	for {
+		var b *bytes.Buffer
+		select{
+		case b = <- freeList:
+		default:
+			b = new(Buffer)
+		}
+		load(b)
+		serverChan <- b
+	}
+}
+ //=======
+
+func server()  {
+	for {
+		b := <- serverChan
+		process(b)
+		select{
+		case freeList <- b:
+		default:
+
+		}
+	}
+}
+
+//=======
 
 
 
