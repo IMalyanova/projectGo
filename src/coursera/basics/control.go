@@ -8,6 +8,12 @@ func main() {
 	if boolVal {
 		fmt.Println("boolVal is true")
 	}
+	//
+	//boolVal := true
+	//if boolVal {
+	//	fmt.Println("boolVal is true")
+	//}
+	//
 
 	mapVal := map[string]string{"name": "rvasily"}
 	// условие с блоком инициализации
@@ -18,6 +24,16 @@ func main() {
 	if _, keyExist := mapVal["name"]; keyExist {
 		fmt.Println("key 'name' exist")
 	}
+	//
+	//mapVal := map[string]string{"name": "rvasily"}
+	//if keyValue, keyExist := mapVal["name"]; keyExist {
+	//	fmt.Println("name =", keyValue)
+	//}
+	//
+	//if _,keyExist := mapVal["name"]; keyExist {
+	//	fmt.Println("key 'name' exist")
+	//}
+	//
 
 	cond := 1
 	// множественные if else
@@ -26,6 +42,18 @@ func main() {
 	} else if cond == 2 {
 		fmt.Println("cond is 2")
 	}
+
+	//
+	cond := 1
+	if cond == 1 {
+		fmt.Println("cond is 1")
+	} else if cond == 2 {
+		fmt.Println("con")
+	}
+	//
+
+
+
 
 	// switch по 1 переменной
 	strVal := "name"
