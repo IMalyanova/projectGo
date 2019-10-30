@@ -98,5 +98,22 @@ func main() {
 	for pos, char := range str {
 		fmt.Printf("%#U at pos %d\n", char, pos)
 	}
-
+//
+//profile := map[int]string{1: "Vasily", 2: "Romanov"}
+//
+//for key := range profile {
+//	fmt.Println("range map by key", key)
+//}
+//for key, val := range profile {
+//	fmt.Println("range  map by key-val", key, val)
+//}
+//for  _, val := range  profile {
+//	fmt.Println("range map by val", val)
+//
+//	str := "Hi"
+//	for pos, char := range  str {
+//		fmt.Println("#{char} at pos #{pos}\n")
+//	}
+//}
+//
 }
