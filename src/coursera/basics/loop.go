@@ -23,6 +23,23 @@ func main() {
 			continue
 		}
 	}
+//
+//for {
+//	fmt.Println("loop iteration")
+//	break
+//}
+//isRun := true
+//for isRun {
+//	fmt.Println("loop iteration with condition")
+//	isRun = false
+//}
+//for i := 0; i < 2; i ++ {
+//	fmt.Println("loop iteration", i)
+//	if i == 1 {
+//		continue
+//	}
+//}
+//
 
 	// операции по slice
 	sl := []int{1, 2, 3}
@@ -42,6 +59,25 @@ func main() {
 	for idx, val := range sl {
 		fmt.Println("range slice by idx-value", idx, val)
 	}
+
+	////
+	//sl := []int{1, 2, 3}
+	//idx := 0
+	//
+	//for idx < len(sl) {
+	//	fmt.Println("wile-style loop, idx: ", idx, "value: ", sl[idx])
+	//	idx ++
+	//}
+	//for i := 0; i < len(sl); i ++ {
+	//	fmt.Println("c-style loop", i, sl[i])
+	//}
+	//for idx := range sl {
+	//	fmt.Println("range slice by inydex", sl[idx])
+	//}
+	//for idx, val := range sl {
+	//	fmt.Println("range slice by idx-vaalue", idx, val)
+	//}
+	//
 
 	// операции по map
 	profile := map[int]string{1: "Vasily", 2: "Romanov"}
