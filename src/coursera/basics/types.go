@@ -14,3 +14,10 @@ func main() {
 	
 	println(uid, myID)
 }
+//
+//	idx := 1
+//	var uid UserID = 42
+//
+//	myID := UserID(idx)
+//	println(uid, myID)
+//

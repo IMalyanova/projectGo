@@ -18,7 +18,15 @@ func main() {
 	fmt.Println("str", str)
 	fmt.Println("hello", hello)
 	fmt.Println("world", world)
-
+//
+//var str string
+//	var hello string = "Привет\n\t"
+//	var world string = 'Мир \n\t'
+//
+//	fmt.Println("str", str)
+//	fmt.Println("hello", hello)
+//	fmt.Println("world", world)
+//
 	// UTF-8 из коробки
 	var helloWorld = "Привет, Мир!"
 	hi := "你好，世界"
@@ -33,6 +41,20 @@ func main() {
 	var someChinese rune = '茶'
 
 	fmt.Println(rawBinary, someChinese)
+//
+//var helloWorld = "sdjf"
+//hi := "ac dcds"
+//
+//
+//fmt.Println("helloWorld", helloWorld)
+//fmt.Println("hi", hi)
+//
+//var rawBinary byte = '\x27'
+//var someChinese rune = '#$%'
+//fmt.Println(rawBinary, someChinese)
+//
+
+
 
 	helloWorld = "Привет Мир"
 	// конкатенация строк
@@ -55,9 +77,27 @@ func main() {
 	H := helloWorld[0]      // byte, 72, не "П"
 	fmt.Println(H)
 
+	//
+	//andGoodMorning := helloWorld + " и доброе утро"
+	//fmt.Println(helloWorld, andGoodMorning)
+	//byteLen := len(helloWorld)
+	//symbols := utf8.RuneCountInString(helloWorld)
+	//fmt.Println(byteLen, symbols)
+	//
+	//hello = helloWorld[ :12]
+	//H := helloWorld[0]
+	//fmt.Println(H)
+	//
+
 	// конвертация в слайс байт и обратно
 	byteString := []byte(helloWorld)
 	helloWorld = string(byteString)
 
 	fmt.Println(byteString, helloWorld)
+
+	//
+	//byteString := []byte(helloWorld)
+	//helloWorld = string(byteString)
+	// fmt.Println(byteString, helloWorld)
+	//
 }

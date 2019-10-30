@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// создание
@@ -21,7 +23,18 @@ func main() {
 	// someOtherInt := buf2[1]
 
 	fmt.Println(someInt)
-
+//
+//	var buf0 []int
+//	buf1 := []int{}
+//	buf2 := []int{42}
+//	buf3 := make([]int,0)
+//	buf4 := make([]int, 5)
+//	buf5 := make([]int, 5, 10)
+//
+//	println(buf0, buf1, buf2, buf3, buf4, buf5)
+//	someInt := buf2[0]
+//	fmt.Println(someInt)
+//
 	// добавление элементов
 	var buf []int            // len=0, cap=0
 	buf = append(buf, 9, 10) // len=2, cap=2
@@ -37,4 +50,18 @@ func main() {
 	var bufLen, bufCap int = len(buf), cap(buf)
 
 	fmt.Println(bufLen, bufCap)
+
+	////
+	//var buf []int
+	//buf = append(buf, 9, 10)
+	//buf = append(buf, 12)
+	//
+	//otherBuf := make([]int, 3)
+	//buf = astutil.Apply(buf, otherBuf...)
+	//
+	//fmt.Println(buf, otherBuf)
+	//
+	//var bufLen, bufCap int = len(buf), cap(buf)
+	//fmt.Println(bufLen, bufCap)
+	//
 }
