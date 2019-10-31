@@ -31,18 +31,14 @@ func main() {
 
 		filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
 
-			isDirect(info)
-			fmt.Println(space, info.Name(), "----", info.Size(), " byte")
+			if info.IsDir(){
+				space +=  "              "
+				fmt.Println(space, info.Name())
+			} else {
+				space +=  "              "
+				fmt.Println(space, info.Name(), "----", info.Size(), " byte")
+				space = strings.Replace(space, "              ", "", 1)
+			}
 			return nil
 		})
-
-}
-
-func isDirect(info os.FileInfo){
-
-	if  info.IsDir() {
-		space +=  "              "
-		fmt.Println(space, info.Name())
-		space = strings.Replace(space, "              ", "", 1)
-	}
 }
