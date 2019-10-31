@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -17,15 +18,20 @@ func main() {
 	path := os.Args[1]
 	printFiles := len(os.Args) == 3 && os.Args[2] == "-f"
 	err := dirTree(out, path, printFiles)
+
 	if err != nil {
 		panic(err.Error())
 	}
 
 
+	in := bufio.NewScanner(os.Stdin)
 
+	for in.Scan() {
+		txt := in.Text()
+	}
 }
 
-func dirTree(str string)  {
+func dirTree (out *File, path string, printFiles) err error {
 
 	file, err := os.NewFile()
 
@@ -36,4 +42,5 @@ func dirTree(str string)  {
 	}
 
 	fmt.Println(stat)
+	return err
 }
