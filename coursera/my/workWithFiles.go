@@ -1,4 +1,4 @@
-package main
+package my
 
 
 //http://golang-book.ru/chapter-13-core-packages.html
