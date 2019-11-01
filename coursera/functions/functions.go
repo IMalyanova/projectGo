@@ -39,7 +39,7 @@ func multipleNamedReturn(ok bool) (rez int, err error) {
 	rez = 2
 	return
 }
-/
+
 
 
 // не фиксированное количество параметров
