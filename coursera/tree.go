@@ -6,20 +6,25 @@ import (
 	"path/filepath"
 	"strings"
 )
-var space string
+var space string = "              "
+
 
 func main() {
 
-
+	tree(".", space)
 }
 
 
-func tree(path string, space string) {
+
+func tree (pathIn string, space string) {
 
 	var arrayPath [] os.FileInfo
+	var pathElement string
 
-	filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+	filepath.Walk(pathIn, func(path string, info os.FileInfo, err error) error {
 		arrayPath = append(arrayPath, info)
+		pathElement = path
+
 		return nil
 	})
 
@@ -28,24 +33,16 @@ func tree(path string, space string) {
 		if !infoElement.IsDir() {
 			fmt.Println(space, infoElement.Name(), "----", infoElement.Size(), " byte")
 		} else {
+			space = strings.Replace(space, "              ", "", 1)
 			fmt.Println(space, infoElement.Name())
+			space +=  "              "
+			tree(pathElement, space)
+
 		}
-		setSpace(infoElement, space)
-
 	}
 }
 
 
-func setSpace(infoElement os.FileInfo, space string) string {
-
-	if infoElement.IsDir(){
-		space +=  "              "
-		//tree(infoElement, space)
-		space = strings.Replace(space, "              ", "", 1)
-	}
-
-	return space
-}
 
 
 
