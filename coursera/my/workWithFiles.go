@@ -1,4 +1,4 @@
-package my
+package main
 
 
 //http://golang-book.ru/chapter-13-core-packages.html
@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 )
 
-func main() {
+func main1() {
 
 	// создаем файл
 	file, err := os.Create("test.txt")

@@ -12,11 +12,11 @@ import (
 
 func main() {
 
-	in := bufio.NewScanner(os.Stdin)
-
-	for in.Scan() {
-		txt := in.Text()
-	}
+	//in := bufio.NewScanner(os.Stdin)
+	//
+	//for in.Scan() {
+	//	txt := in.Text()
+	//}
 
 	out := os.Stdout                                                                     //
 
