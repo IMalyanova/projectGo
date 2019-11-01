@@ -14,3 +14,16 @@ func main() {
 	}()
 	fmt.Println("Some userful work")
 }
+
+//func getSomeVars() string {
+//	fmt.Println("getSomeVars execution")
+//	return "getSomeVars result"
+//}
+//
+//func main() {
+//	defer fmt.Println("After work")
+//	defer func() {
+//		fmt.Println(getSomeVars())
+//	}()
+//	fmt.Println("Some userful work")
+//}

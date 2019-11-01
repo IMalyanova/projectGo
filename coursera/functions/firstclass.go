@@ -7,6 +7,10 @@ func doNothing() {
 	fmt.Println("i'm regular function")
 }
 
+//func doNothing()  {
+//	fmt.Println("i'm regular function")
+//}
+
 func main() {
 	// анонимная функция
 	func(in string) {
@@ -27,6 +31,17 @@ func main() {
 		callback("as callback")
 	}
 	worker(printer)
+
+//
+func(in string){
+	fmt.Println("anon func out:", in)
+}
+//
+
+
+
+
+
 
 	// функиция возвращает замыкание
 	prefixer := func(prefix string) strFuncType {
