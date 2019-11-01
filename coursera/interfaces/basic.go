@@ -32,3 +32,28 @@ func main() {
 	myWallet := &Wallet{Cash: 100}
 	Buy(myWallet)
 }
+//
+//type Payer interface {
+//	Pay(int) error
+//}
+
+//type Wallet struct {
+//	Cash int
+//}
+
+//func (w *Wallet) Pay(amount int) error {
+//	if w.Cash < amount {
+//		return  fmt.Errorf("Pum pum")
+//	}
+//	w.Cash -= amount
+//	return nil
+//}
+//
+//func Buy(p Payer) {
+//	err := p.Pay(10)
+//	if err != nil {
+//		panic(err)
+//	}
+//}
+//myWallet := &Wallet{Cash: 100}
+//Buy(myWallet)
