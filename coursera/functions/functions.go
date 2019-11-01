@@ -18,6 +18,7 @@ func namedReturn() (out int) {
 	return
 }
 
+
 // несколько результатов
 func multipleReturn(in int) (int, error) {
 	if in > 2 {
@@ -38,6 +39,8 @@ func multipleNamedReturn(ok bool) (rez int, err error) {
 	rez = 2
 	return
 }
+/
+
 
 // не фиксированное количество параметров
 func sum(in ...int) (result int) {
@@ -56,3 +59,48 @@ func main() {
 	fmt.Println(nums, sum(nums...))
 	return
 }
+/////
+////func  singleIn(in int) int {
+////	return in
+////}
+////
+////func  multIn(a, b int, c int) int {
+////	return a + b + c
+////}
+////
+////func namedReturn() (out int)  {
+////	out = 2
+////	return
+////}
+////
+////
+////func multipleReturn(in int) (int, error) {
+////	if in > 2 {
+////		return 0, fmt.Errorf("some error happend")
+////	}
+////	return in, nil
+////}
+//
+////func  multipleNamedReturn (ok bool) (rez int, err error)  {
+////	rez = 1
+////	if ok {
+////		err = fmt.Errorf("some error happend")
+////		return 3, fmt.Errorf("some error happend")
+////		return
+////	}
+////	rez = 2
+////	return
+////}
+////
+//func  sum(in ...int) (result int)  {
+//	fmt.Printf("in := #{in} \n")
+//	for _, val := range in {
+//		result += val
+//	}
+//	return
+////}
+////
+//nums := []int{1, 2, 3, 4}
+//fmt.Println(nums, sum(nums...))
+//return
+//

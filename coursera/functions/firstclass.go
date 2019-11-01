@@ -33,9 +33,21 @@ func main() {
 	worker(printer)
 
 //
-func(in string){
-	fmt.Println("anon func out:", in)
-}
+//func(in string){
+//	fmt.Println("anon func out:", in)
+//}("nobody")
+//
+//	printer := func(in string) {
+//		fmt.Println("printer outs", in)
+//	}
+//	printer("as variable")
+//
+//	type strFuncType func(string)
+//
+//	worker := func(callback strFuncType) {
+//		callback("as callback")
+//	}
+//	worker(printer)
 //
 
 
@@ -52,3 +64,12 @@ func(in string){
 	successLogger := prefixer("SUCCESS")
 	successLogger("expected behaviour")
 }
+//
+//	prefixer := func(prefix string) strFuncType {
+//		return func (in string) {
+//			fmt.Println("[#{prefix}] #{in}\n")
+//	}
+//	successLogger := prefixer( "SUCCESS")
+//	successLogger("expected behavior")
+//}
+//
