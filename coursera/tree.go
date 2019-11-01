@@ -4,12 +4,19 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
+var space string
 
 func main() {
 
+
+}
+
+
+func tree(path string, space string) {
+
 	var arrayPath [] os.FileInfo
-	var space string
 
 	filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
 		arrayPath = append(arrayPath, info)
@@ -18,19 +25,27 @@ func main() {
 
 	for _, infoElement := range arrayPath {
 
-		if !infoElement.IsDir(){
+		if !infoElement.IsDir() {
 			fmt.Println(space, infoElement.Name(), "----", infoElement.Size(), " byte")
 		} else {
 			fmt.Println(space, infoElement.Name())
 		}
+		setSpace(infoElement, space)
 
 	}
-
 }
 
-func jj(space string) string{
 
+func setSpace(infoElement os.FileInfo, space string) string {
 
+	if infoElement.IsDir(){
+		space +=  "              "
+		//tree(infoElement, space)
+		space = strings.Replace(space, "              ", "", 1)
+	}
 
 	return space
 }
+
+
+
