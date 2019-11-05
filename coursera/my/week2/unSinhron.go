@@ -21,4 +21,9 @@ func getPage() {
 	resultCh := getComments()
 
 	time.Sleep(1 * time.Second)
+	fmt.Println("get related articles")
+
+
+	commentsData := <- resultCh
+	fmt.Println("main goroutine: ", commentsData)
 }
