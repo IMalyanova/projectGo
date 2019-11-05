@@ -61,7 +61,12 @@ func tree (pathElement string, space string) {
 
 		space := space + "│"
 		space2 = strings.TrimRight(space, "│")
-		space2 += "├───"
+
+		if file == files[len(files)-1] {
+			space2 += "└───"
+		} else {
+			space2 += "├───"
+		}
 
 		if !file.IsDir() {
 			fmt.Println(space2, file.Name(), " (", file.Size(), "b)")
