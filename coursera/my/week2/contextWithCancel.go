@@ -8,26 +8,18 @@ import (
 )
 
 func main() {
-
-	ctx, finish := context.WithCancel(context.Background())
-	ressult := make(chan int, 1)
+	workTime := 50 * time.Millisecond
+	ctx, _ := context.WithTimeout(context.Background(), workTime)
+	result := make(chan int, 1)
 
 	for i := 0; i <= 10 ; i++  {
-		go worker(ctx, i, ressult)
+		go worker2(ctx, i, result)
 	}
-
-	foundBy := <- ressult
-	fmt.Println("ressult found by", foundBy)
-	finish()
-
-	time.Sleep(time.Second)
 }
 
-func  worker(ctx context.Context, workerNum int, out chan <- int)  {
-
+func worker2(ctx context.Context, workerNum int, out chan <- int)  {
 	waitTime := time.Duration(rand.Intn(100) + 10) * time.Millisecond
 	fmt.Println(workerNum, "sleep", waitTime)
-
 	select {
 	case <- ctx.Done():
 		return
