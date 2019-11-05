@@ -9,14 +9,9 @@ import (
 )
 
 
-
-
 func main() {
 
-	var space string = "│"
-
-	tree(".", space)
-
+	tree(".", "")
 }
 
 
@@ -25,7 +20,7 @@ func tree (pathElement string, space string) {
 
 	var space2 string
 	files, err := ioutil.ReadDir(pathElement)
-
+	
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,9 +28,6 @@ func tree (pathElement string, space string) {
 	for _, file := range files {
 
 		space := space + "│"
-		if space == "││" {
-			space = "│"
-		}
 		space2 = strings.TrimRight(space, "│")
 		space2 += "├───"
 

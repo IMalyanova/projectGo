@@ -34,8 +34,7 @@ func main() {
 
 func dirTree (out *File, path string, printFiles bool) err error {
 
-	var space string = "│"
-	tree(".", space)
+	tree(".", "")
 
 
 	if err != nil {
@@ -61,9 +60,6 @@ func tree (pathElement string, space string) {
 	for _, file := range files {
 
 		space := space + "│"
-		if space == "││" {
-			space = "│"
-		}
 		space2 = strings.TrimRight(space, "│")
 		space2 += "├───"
 
