@@ -1,24 +1,18 @@
 package main
 
 import (
-	"bufio"
+	"bytes"
 	"fmt"
-	"io"
+	"io/ioutil"
+	"log"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
 
 func main() {
 
-	//in := bufio.NewScanner(os.Stdin)
-	//
-	//for in.Scan() {
-	//	txt := in.Text()
-	//}
-
-	out := os.Stdout                                                                     //
+	out := new(bytes.Buffer)                                                                    //
 
 	if !(len(os.Args) == 2 || len(os.Args) == 3) {                                      //
 		panic("usage go run main.go . [-f]")                                        //
@@ -33,29 +27,52 @@ func main() {
 	}                                                                                  //
 
 
-
 }
 
 
-func dirTree(out *File, path string, printFiles bool) error {
-
-	//file, err := os.NewFile()
 
 
-	// получить размер файла
-	stat, err := file.Stat()
+func dirTree (out *File, path string, printFiles bool) err error {
+
+	var space string = "│"
+	tree(".", space)
+
 
 	if err != nil {
 		return err
 	}
-	fmt.Println(stat)
-
-
-	// получаем адреса файлов
-	filepath.Walk(".", func(out *File, path string, printFiles bool) error {
-		fmt.Println(path, stat)
-		return nil
-	})
 
 	return err
+}
+
+
+
+
+
+func tree (pathElement string, space string) {
+
+	files, err := ioutil.ReadDir(pathElement)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+
+		space2 := space + "├───"
+		if space2 == "│├───" {
+			space2 = "├───"
+		}
+
+		if !file.IsDir() {
+			fmt.Println(space2, file.Name(), " (", file.Size(), "b)")
+		} else {
+			fmt.Println(space2, file.Name())
+			space += "\t"
+			tree( pathElement + string(os.PathSeparator) + file.Name() + string(os.PathSeparator), space)
+			space = strings.Replace(space, "\t", "", 1)
+		}
+	}
+
+
 }

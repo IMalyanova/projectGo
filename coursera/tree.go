@@ -2,59 +2,50 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
-	"path/filepath"
-	"sort"
+	"strings"
 )
-var space string
+
+
 
 
 func main() {
 
+	var space string = "│"
+
 	tree(".", space)
+
 }
 
 
 
-func tree (pathIn string, space string) {
+func tree (pathElement string, space string) {
 
-	var arrayPath [] os.FileInfo
-	var pathElement string
+	files, err := ioutil.ReadDir(pathElement)
 
-	sort.Slice(arrayPath, func(i, j int) bool {
-		return false
-	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	filepath.Walk(pathIn, func(path string, info os.FileInfo, err error) error {
-		arrayPath = append(arrayPath, info)
-		pathElement = path
+	for _, file := range files {
 
-		return nil
-	})
+		space2 := space + "├───"
+		if space2 == "│├───" {
+			space2 = "├───"
+		}
 
-	for _, infoElement := range arrayPath {
-
-		if !infoElement.IsDir() {
-			//space +=  "              "
-			fmt.Println(space, infoElement.Name(), "----", infoElement.Size(), " byte")
+		if !file.IsDir() {
+			fmt.Println(space2, file.Name(), " (", file.Size(), "b)")
 		} else {
-			space +=  "              "
-			fmt.Println(space, infoElement.Name())
-			//gg(pathElement, space, infoElement.Name())
-			//space = strings.Replace(space, "              ", "", 1)
+			fmt.Println(space2, file.Name())
+			space += "\t"
+			tree( pathElement + string(os.PathSeparator) + file.Name() + string(os.PathSeparator), space)
+			space = strings.Replace(space, "\t", "", 1)
 		}
 	}
 
-
 }
-//
-//func gg( pathElement string, space string, name string ){
-//
-//	space +=  "              "
-//	fmt.Println(space, name)
-//	tree(pathElement, space)
-//}
-
-
 
 

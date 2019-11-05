@@ -28,3 +28,25 @@ func main() {
 	fmt.Printf("Raw payment : %#v\n", myWallet)
 	fmt.Printf("Способ оплаты: %s\n", myWallet)
 }
+////
+//type Wallet struct {
+//	Cash int
+//}
+//
+//func (w *Wallet) Pay(amount int) error {
+//	if w.Cash < amount {
+//		return  fmt.Errorf("Not enough cash")
+//	}
+//	w.Cash -= amount
+//	return nil
+//}
+//
+//func (w *Wallet) String() string  {
+//	return "Rjitktr d rjnjhjv " +   strconv.Itoa(w.Cash) + " maney"
+//}
+//
+//func main()  {
+//	myWallet := &Wallet{Cash: 100}
+//	fmt.Printf("...")
+//	fmt.Printf("...")
+//}
