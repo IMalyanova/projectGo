@@ -23,6 +23,7 @@ func main() {
 
 func tree (pathElement string, space string) {
 
+	var space2 string
 	files, err := ioutil.ReadDir(pathElement)
 
 	if err != nil {
@@ -31,10 +32,12 @@ func tree (pathElement string, space string) {
 
 	for _, file := range files {
 
-		space2 := space + "├───"
-		if space2 == "│├───" {
-			space2 = "├───"
+		space := space + "│"
+		if space == "││" {
+			space = "│"
 		}
+		space2 = strings.TrimRight(space, "│")
+		space2 += "├───"
 
 		if !file.IsDir() {
 			fmt.Println(space2, file.Name(), " (", file.Size(), "b)")
