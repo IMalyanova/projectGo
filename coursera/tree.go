@@ -40,7 +40,7 @@ func tree (pathElement string, space string) {
 			fmt.Println(space2, file.Name(), " (", file.Size(), "b)")
 		} else {
 			fmt.Println(space2, file.Name())
-			space += "\t"
+			space = space + "\t" + space
 			tree( pathElement + string(os.PathSeparator) + file.Name() + string(os.PathSeparator), space)
 			space = strings.Replace(space, "\t", "", 1)
 		}
