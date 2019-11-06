@@ -22,7 +22,12 @@ func main() {
 	fmt.Printf("struct: \n\t%#v\n\n", u)
 
 	u.phone = "987654321"
-	result, _ := json.Marshal(u)
+	result, err := json.Marshal(u)
+
+	if err != nil {
+		panic(err)
+	}
+
 	fmt.Printf("json string: \n\t%s\n", string(result))
 
 }
