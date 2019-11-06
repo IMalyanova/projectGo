@@ -21,7 +21,11 @@ func main() {
 		Address: "",
 		Company: "Mail.Ru Group",
 	}
-	result, _:= json.Marshal(u)
+	result, err:= json.Marshal(u)
+
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("json string: %s\n", string(result))
 }
 
