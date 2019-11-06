@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"go/ast"
 	"go/parser"
@@ -59,5 +60,39 @@ func main() {
 
 		fmt.Printf("process struct %s\n", currType.Name.Name)
 		fmt.Printf("\tgenerating Unpack metod\n")
+
+		fmt.Fprintln(out, "func (in *" + currType.Name.Name+")
+		Unpack(data []byte) error{")
+		fmt.Fprintln(out, "r := bytes.NewReader(data)")
+
+		FIELDS_LOOP:
+			for _, field := range currStruct.Fields.List {
+
+				if field.Tag != nil {
+					tag := reflect.StructTag(field.Tag.Value[1: len(field.Tag.Value) - 1])
+
+					if tag.Get("cgen") == "-" {
+						continue FIELDS_LOOP
+					}
+				}
+				fileNAme := field.Names[0].Name
+				fileType := field.Type.(*ast.Ident).Name
+
+				fmt.Printf("\tgenerating code for field %s.%s\n",
+					currType.Name.Name, fieldName)
+
+				switch fileType {
+				case "int":
+					intTpl.Execute(out, tpl{fieldName})
+				case "string":
+					strTpl.Execute(out, tpl{fieldName})
+				default:
+					log.Fatalln("unsupported", fileType)
+				}
+			}
+			fmt.Fprintln(out, " return nil")
+			fmt.Fprintln(out, "}")
+			fmt.Fprintln(out)
+		}
 	}
 }
