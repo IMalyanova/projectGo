@@ -23,9 +23,10 @@ func main() {
 		"id": 42,
 		"username": "rvasily",
 	}
+
 	var user2i interface{} = user2
 	result, err := json.Marshal(user2i)
-	
+
 	if err != nil {
 		panic(err)
 	}
