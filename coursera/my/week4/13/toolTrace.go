@@ -35,7 +35,7 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	result := ""
 
 	for i := 0; i < 100; i ++  {
-		currPost := &Post {ID: i, Text: "new post", Time: time.Now()
+		currPost := &Post {ID: i, Text: "new post", Time: time.Now(),
 		}
 		jsonRaw, _ := json.Marshal(currPost)
 		result += string(jsonRaw)
