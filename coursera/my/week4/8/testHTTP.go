@@ -18,13 +18,6 @@ type TestCase struct {
 
 
 
-
-func main() {
-	
-}
-
-
-
 func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	key := r.FormValue("id")
