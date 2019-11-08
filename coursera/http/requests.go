@@ -11,29 +11,41 @@ import (
 	"time"
 )
 
+
 func startServer() {
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+
 		fmt.Fprintf(w, "getHandler: incoming request %#v\n", r)
 		fmt.Fprintf(w, "getHandler: r.Url %#v\n", r.URL)
 	})
 
+
 	http.HandleFunc("/raw_body", func(w http.ResponseWriter, r *http.Request) {
+
 		body, err := ioutil.ReadAll(r.Body)
+
 		defer r.Body.Close() // важный пункт!
+
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
 		}
+
 		fmt.Fprintf(w, "postHandler: raw body %s\n", string(body))
 	})
+
 
 	fmt.Println("starting server at :8080")
 	http.ListenAndServe(":8080", nil)
 }
 
+
 func runGet() {
+
 	url := "http://127.0.0.1:8080/?param=123&param2=test"
 	resp, err := http.Get(url)
+
 	if err != nil {
 		fmt.Println("error happend", err)
 		return
@@ -44,6 +56,8 @@ func runGet() {
 
 	fmt.Printf("http.Get body %#v\n\n\n", string(respBody))
 }
+
+
 
 func runGetFullReq() {
 
@@ -57,11 +71,13 @@ func runGetFullReq() {
 	req.URL, _ = url.Parse("http://127.0.0.1:8080/?id=42")
 	req.URL.Query().Set("user", "rvasily")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := http.DefaultClient.Do(req) // лучше по дефолту не делать, так как там нет таймаутов
+
 	if err != nil {
 		fmt.Println("error happend", err)
 		return
 	}
+
 	defer resp.Body.Close() // важный пункт!
 
 	respBody, err := ioutil.ReadAll(resp.Body)
@@ -70,6 +86,7 @@ func runGetFullReq() {
 }
 
 func runTransportAndPost() {
+
 	transport := &http.Transport{
 		DialContext: (&net.Dialer{
 			Timeout:   30 * time.Second,
@@ -88,14 +105,15 @@ func runTransportAndPost() {
 	}
 
 	data := `{"id": 42, "user": "rvasily"}`
-	body := bytes.NewBufferString(data)
+	body := bytes.NewBufferString(data)  // создаем io Reader используя эту конструкцию
 
-	url := "http://127.0.0.1:8080/raw_body"
-	req, _ := http.NewRequest(http.MethodPost, url, body)
+	url := "http://127.0.0.1:8080/raw_body" // на этот урл я буду отправлять то. что в data
+	req, _ := http.NewRequest(http.MethodPost, url, body)  // NewRequest мне вернет запрос
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Content-Length", strconv.Itoa(len(data)))
+	req.Header.Add("Content-Length", strconv.Itoa(len(data))) // сколько данных я хочу туда передать
 
-	resp, err := client.Do(req)
+	resp, err := client.Do(req) // вызываю не дефолтного клиента, а уже моего
+
 	if err != nil {
 		fmt.Println("error happend", err)
 		return
@@ -108,6 +126,7 @@ func runTransportAndPost() {
 }
 
 func main() {
+
 	go startServer()
 
 	time.Sleep(100 * time.Millisecond)

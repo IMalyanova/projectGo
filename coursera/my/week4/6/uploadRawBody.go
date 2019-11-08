@@ -1,7 +1,6 @@
 package main
 
 import (
-	"coursera/my/week4/5"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
