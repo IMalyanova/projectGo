@@ -2,13 +2,13 @@ package main
 
 import (
 	"encoding/xml"
+	"fmt"
+	"gopkg.in/telegram-bot-api.v4"
 	"io/ioutil"
 	"net/http"
 )
 
-func main() {
-	
-}
+
 
 const (
 	BotToken = "310805560:AAENzjDSJPKABY9Hw1GZOdKBxxrhOHkfo_k"
@@ -47,4 +47,50 @@ func getNews(url string) (*RSS, error) {
 	}
 
 	return rss, nil
+}
+
+
+func main() {
+	bot, err := tgbotapi.NewBotAPI(BotToken)
+	if err != nil {
+		panic(err)
+	}
+
+	// bot.Debug = true
+	fmt.Printf("Authorized on account %s\n", bot.Self.UserName)
+
+	_, err = bot.SetWebhook(tgbotapi.NewWebhook(WebhookURL))
+	if err != nil {
+		panic(err)
+	}
+
+	updates := bot.ListenForWebhook("/")
+
+	go http.ListenAndServe(":8080", nil)
+	fmt.Println("start listen :8080")
+
+	// получаем все обновления из канала updates
+	for update := range updates {
+		if url, ok := rss[update.Message.Text]; ok {
+			rss, err := getNews(url)
+			if err != nil {
+				bot.Send(tgbotapi.NewMessage(
+					update.Message.Chat.ID,
+					"sorry, error happend",
+				))
+			}
+			for _, item := range rss.Items {
+				bot.Send(tgbotapi.NewMessage(
+					update.Message.Chat.ID,
+					item.URL+"\n"+item.Title,
+				))
+			}
+		} else {
+			bot.Send(tgbotapi.NewMessage(
+				update.Message.Chat.ID,
+				`there is only Habr feed availible`,
+			))
+		}
+
+	}
 }
