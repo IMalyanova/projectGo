@@ -13,6 +13,9 @@ import (
 // сколько в среднем спим при эмуляции работы
 const AvgSleep = 50
 
+
+
+
 func trackContextTimings(ctx context.Context, metricName string, start time.Time) {
 	// получаем тайминги из контекста
 	// поскольку там пустой интерфейс, то нам надо преобразовать к нужному типу
@@ -73,6 +76,8 @@ func logContextTimings(ctx context.Context, path string, start time.Time) {
 	fmt.Println(buf.String())
 }
 
+
+
 func timingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -86,12 +91,16 @@ func timingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+
+
 func emulateWork(ctx context.Context, workName string) {
 	defer trackContextTimings(ctx, workName, time.Now())
 
 	rnd := time.Duration(rand.Intn(AvgSleep))
 	time.Sleep(time.Millisecond * rnd)
 }
+
+
 
 func loadPostsHandle(w http.ResponseWriter, req *http.Request) {
 	ctx := req.Context()
@@ -106,6 +115,8 @@ func loadPostsHandle(w http.ResponseWriter, req *http.Request) {
 
 	fmt.Fprintln(w, "Request done")
 }
+
+
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
