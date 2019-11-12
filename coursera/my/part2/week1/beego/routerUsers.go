@@ -11,7 +11,7 @@ func init() {
 		beego.NSNamespase("/user",
 			beego.NSInclude(
 				&controllers.UserController{},
-			), 
+			),
 		),
 	)
 	beego.AddNamespace(ns)
