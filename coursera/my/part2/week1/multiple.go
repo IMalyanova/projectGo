@@ -22,7 +22,7 @@ func main() {
 	siteMux.Handle("/fast/", fastApiHandler)
 	siteMux.Handle("/complex/", complexApiHandler)
 	siteMux.Handle("/std/", stdApiHandler)
-	
+
 	fmt.Println("starting server at :8080")
 	log.Fatal(http.ListenAndServe(":8080", siteMux))
 }
