@@ -24,6 +24,28 @@ func main() {
 	}
 
 	fmt.Printf("mc value %#v\n", item)
+
+	memcacheClient.Delete(mkey)
+
+	item, err = memcacheClient.Get(mkey)
+
+	item, err  = memcacheClient.Get(mkey)
+	if err == memcache.ErrCacheMiss {
+		fmt.Println("record not found in MC")
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
