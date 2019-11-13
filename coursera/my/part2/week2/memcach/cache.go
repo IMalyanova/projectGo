@@ -161,8 +161,76 @@ func (tc *TCache) checkLock(mkey string) error {
 
 
 
+func (tc *TCach) lockRebuild(mkey string) (bool, error) {
+	// пытаемся взять лок на перестроение кэша
+	// чтобы все не ломанулись его перстраивать
+	// параметры нужно тюнить
+	lockKey := "lock_" + mkey
+	lockAccuired := false
+
+	for i := 0; i < 4; i++ {
+		// add добавляет запись, если ее еще нет
+		err := tc.Add(&memcache.Item {
+			Key:		lockKey,
+			Value:		[]byte("1"),
+			Expiration: int32(3),
+		})
+
+		if err == memcache.ErrNotStored {
+			fmt.Println("get lock try", i)
+			time.Sleep(time.Millisecond * 10)
+			continue
+		} else if err != nil {
+			return false, err
+		}
+		lockAccuired = true
+		break
+	}
+	if !lockAccuired {
+		return false, fmt.Errorf("Can't get lock")
+	}
+	return true, nil
+}
 
 
-func main() {
-	
+
+func (tc *TCache) unlockRebuild(mkey string) {
+	tc.Delete("lock_" + mkey)
+}
+
+
+
+func (tc *TCache) getCurrentItemTags (tags []string, ttl int32) (map[string]int, error) {
+	currTags, err := tc.GetMulti(tags)
+
+	if err != nil {
+		return nil, err
+	}
+	resultTags := make(map[string]int, len(tags))
+	now := int(time.Now().Unix())
+	nowBytes := []byte(fmt.Sprint(now))
+
+	for _, tagKey := range tags {
+		tagItem, tagExit := currTags[tagKey]
+
+		if !tagExist {
+			err := tc.Set(&memcache.Item {
+				Key:		tagKey,
+				Value:		nowBytes,
+				Expiration: int32(ttl),
+			})
+			if err != nil {
+				return nil, err
+			}
+			resultTags[tagKey] = now
+		} else {
+			i, err := strconv.Atoi(string(tagItem.Value))
+
+			if err != nil {
+				return nil, err
+			}
+			resultTags[tagKey] = i
+		}
+	}
+	return resultTags, nil
 }

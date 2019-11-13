@@ -146,7 +146,7 @@ func (tc *TCache) checkLock(mkey string) error {
 	return nil
 }
 
-func (tc *TCache) lockRebuild(mkey string) (bool, error) { ////
+func (tc *TCache) lockRebuild(mkey string) (bool, error) {
 	// пытаемся взять лок на перестроение кеша
 	// чтобы все не ломанулись его перестраивать
 	// параметры надо тюнить
