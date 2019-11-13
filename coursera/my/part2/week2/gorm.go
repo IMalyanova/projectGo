@@ -14,7 +14,26 @@ func main() {
 	dsn += "&charset=utf8"
 	dsn += "&interpolateParams=true"
 
-	
+	db, err := gorm.Open("mysql", dsn)
+	db.DB()
+	db.DB().Ping()
+	//_err_panic(err)
+
+	handlers := &Handler{
+		DB:   db,
+		Tmpl: template.Must(template.ParseGlob("../gorm templates/*")),
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/", handlers.List).Methods("GET")
+	r.HandleFunc("/items", handlers.List).Methods("GET")
+	r.HandleFunc("/items/new", handlers.AddForm).Methods("GET")
+	r.HandleFunc("/items/new", handlers.Add).Methods("POST")
+	r.HandleFunc("/items/{id}", handlers.Edit).Methods("GET")
+	r.HandleFunc("/items/{id}", handlers.Update).Methods("DELETE")
+
+	fmt.Println("starting server at :8080")
+	http.ListenAndServe(":8080", r)
 }
 
 
