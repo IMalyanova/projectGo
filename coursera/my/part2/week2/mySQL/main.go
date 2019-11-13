@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 type Item struct {
@@ -105,10 +106,67 @@ func (h *Hendler) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Insert - RowAffected", affected, "LastInsertId: ", lastID)
-
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 
+
+func (h *Handler) Edit(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+
+	if err != nil {
+		return
+	}
+
+	post := &Item{}
+	//QueryRow сам закрывает контент
+	row := h.DB.QueryRow("SELECT id, title, updated, description FROM" +
+		" items WHERE id = ?", id)
+
+	err = row.Scan(&post.Id, &post.Title, &post.Updated, &post.Description)
+	//__err_panic(err)
+
+	err = h.Tmpl.ExecuteTemplate(w, "edit.html", post)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+
+
+func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+
+	if err != nil {
+		return
+	}
+
+	// в целях упрощения примера пропущена валидация
+
+	result, err := h.DB.Exec(
+		"UPDATE items SET `title` = ?,  `description` = ?" +
+			", `updated` = ?" +
+			"WHERE id = ?",
+			r.FormValue("title"),
+			r.FormValue("description"),
+			"rvasily",
+			id,
+		)
+	//__err_panic(err)
+
+	affected, err := result.RowsAffected()
+	//_err_panic(err)
+
+	fmt.Println("Update - RowsAffected", affected)
+
+	http.Redirect(w, r, "/", http.StatusFound)
+}
 
 
 func main() {
