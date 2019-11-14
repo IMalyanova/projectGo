@@ -15,7 +15,8 @@ import (
 
 var (
 	grpcPort   = flag.Int("grpc", 8081, "listen addr")
-	consulAddr = flag.String("consul", "192.168.99.100:32769", "consul addr (8500 in original consul)")
+	consulAddr = flag.String("consul", "192.168.99.100:32769",
+		"consul addr (8500 in original consul)")
 )
 
 /*
