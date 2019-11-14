@@ -16,31 +16,51 @@ type SessionID struct {
 
 const sessKeyLen = 10
 
-var (
-	sessions = map[SessionID]*Session{}
-	mu		= &sync.RWMutex{}
-)
+//выкидываем глобальные переменные
+//var (
+//	sessions = map[SessionID]*Session{}
+//	mu		= &sync.RWMutex{}
+//)
 
-func AuthCreateSession(in *Session) (*SessionID, error) {
-	mu.Lock()
+type SessionManagerI interface {
+
+	Create(*Session) (*SessionID, error)
+	Check(*SessionID) *Session
+	Delete(*SessionID)
+}
+
+type SessionManager struct {
+	mu 		*sync.Mutex
+	session map[SessionID]*Session{}
+}
+
+func NewSessManager(){
+	return &SessionManager{
+		mu:      &sync.Mutex{},
+		session: map[SessionID]*Session{}, //хранилище сессий
+	}
+}
+
+func (sm *SessionManager) Create(in *Session) (*SessionID, error) {
+	sm.mu.Lock()
 	id := SessionID{RandStringRunes(sessKeyLen)}
-	mu.Unlock()
+	sm.mu.Unlock()
 	sessions[id] = in
 	return &id, nil
 }
 
-func AuthCheckSession(in *SessionID) *Session {
-	mu.RLock()
-	defer mu.RUnlock()
+func (sm *SessionManager) Check(in *SessionID) *Session {
+	sm.mu.RLock()
+	defer sm.mu.RUnlock()
 	if sess, ok := sessions[*in]; ok {
 		return sess
 	}
 	return nil
 }
 
-func AuthSessionDelete(in *SessionID) {
-	mu.Lock()
-	defer mu.Unlock()
+func (sm *SessionManager) Delete(in *SessionID) {
+	sm.mu.Lock()
+	defer sm.mu.Unlock()
 	delete(sessions, *in)
 }
 
