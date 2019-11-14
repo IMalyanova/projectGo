@@ -52,8 +52,19 @@ func main() {
 	fmt.Println("registered in consul", serviceID)
 
 	defer func() {
-		err:= consul.Agent().ServiceDeregister
+		err:= consul.Agent().ServiceDeregister(serviceID)
+		if err != nil {
+			fmt.Println("cant add sevice to consul", err)
+			return
+		}
+		fmt.Println("deregistered in consul", serviceID)
 	}()
+
+	fmt.Println("starting server at " + port)
+	go server.Serve(lis)
+
+	fmt.Println("Press any key to exit")
+	fmt.Scanln()
 
 
 
