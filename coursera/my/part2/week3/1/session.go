@@ -30,14 +30,14 @@ type SessionManagerI interface {
 }
 
 type SessionManager struct {
-	mu 		*sync.Mutex
-	session map[SessionID]*Session{}
+	mu 		*sync.RWMutex
+	sessions map[SessionID]*Session
 }
 
-func NewSessManager(){
+func NewSessManager() *SessionManager{
 	return &SessionManager{
-		mu:      &sync.Mutex{},
-		session: map[SessionID]*Session{}, //хранилище сессий
+		mu:      &sync.RWMutex{},
+		sessions: map[SessionID]*Session{}, //хранилище сессий
 	}
 }
 
@@ -45,14 +45,14 @@ func (sm *SessionManager) Create(in *Session) (*SessionID, error) {
 	sm.mu.Lock()
 	id := SessionID{RandStringRunes(sessKeyLen)}
 	sm.mu.Unlock()
-	sessions[id] = in
+	sm.sessions[id] = in
 	return &id, nil
 }
 
 func (sm *SessionManager) Check(in *SessionID) *Session {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
-	if sess, ok := sessions[*in]; ok {
+	if sess, ok := sm.sessions[*in]; ok {
 		return sess
 	}
 	return nil
@@ -61,7 +61,7 @@ func (sm *SessionManager) Check(in *SessionID) *Session {
 func (sm *SessionManager) Delete(in *SessionID) {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
-	delete(sessions, *in)
+	delete(sm.sessions, *in)
 }
 
 var letterRunes = []rune("msffnsirsndfigldrndbgfmlcm")

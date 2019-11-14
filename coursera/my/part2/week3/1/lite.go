@@ -2,10 +2,18 @@ package main
 
 import "fmt"
 
+var sessManager SessionManagerI
+
+
 func main() {
 
+
+
+	sessManager = NewSessManager()
+
+
 	// создаем сессию
-	sessId, err := AuthCreateSession(
+	sessId, err := sessManager.Create(
 		&Session {
 			Login:		"rvasily",
 			Useragent:	"chrome",
@@ -13,22 +21,22 @@ func main() {
 	fmt.Println("sessId", sessId, err)
 
 	// проверяем сессию
-	sess := AuthCheckSession(
+	sess := sessManager.Check(
 		&SessionID{
 			ID: sessId.ID,
 		})
 	fmt.Println("sess", sess)
 
 	//удаляем сессию
-	AuthSessionDelete(
+	sessManager.Delete(
 		&SessionID{
-			ID: sessID.ID,
+			ID: sessId.ID,
 		})
 
 	// проверяем еще раз
-	sess = AuthCheckSession(
+	sessManager.Check(
 		&SessionID{
-			ID: sessID.ID,
+			ID: sessId.ID,
 		})
 
 	fmt.Println("sess", sess)
