@@ -3,7 +3,10 @@ package main
 import (
 	"context"
 	"coursera/microservices/gateway/session"
+	"fmt"
+	"log"
 	"net/http"
+	"time"
 )
 
 var loginFormTmpl = []byte(`
@@ -56,4 +59,102 @@ func innerPage(w http.ResponseWriter, r *http.Request) {
 		w.Write(loginFormTmpl)
 		return
 	}
+
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprintln(w, "Welcome, "+sess.Login+" <br />")
+	fmt.Fprintln(w, "Session ua: "+sess.Useragent+" <br />")
+	fmt.Fprintln(w, `<a href="/logout">logout</a>`)
 }
+
+
+
+func loginPage(w http.ResponseWriter, r *http.Request) {
+	inputLogin := r.FormValue("login")
+	expiration := time.Now().Add(365 * 24 * time.Hour)
+
+	sess, err := sessManager.Create(
+		context.Background(),
+		&session.Session{
+			Login:     inputLogin,
+			Useragent: r.UserAgent(),
+		})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	cookie := http.Cookie{
+		Name:		"session_id",
+		Value:		sess.ID,
+		Expires:	expiration,
+	}
+	http.SetCookie(w, &cookie)
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+
+
+
+func main() {
+
+	grcpConn, err := grcp.Dial(
+		"127.0.0.1:8081",
+		grpc.WithInsecure(),
+	)
+	if err != nil {
+		log.Fatal("cant connect to grpc")
+	}
+	defer grcpConn.Close()
+
+	sessManager = session.NewAuthCheckerClient(grcpConn)
+
+	http.HandleFunc("/", innerPage)
+	http.HandleFunc("/login", loginPage)
+	http.HandleFunc("/logout", logoutPage)
+	fmt.Println("starting server at :8080")
+	http.ListenAndServe(":8080", nil)
+}
+
+
+
+func logoutPage(w http.ResponseWriter, r *http.Request) {
+
+	cookieSessionID, err := r.Cookie("session_id")
+	if err == http.ErrNoCookie {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	} else if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	sessManager.Delete(
+		context.Background(),
+		&session.SessionID{
+			ID: cookieSessionID.Value,
+		})
+
+	cookieSessionID.Expires = time.Now().AddDate(0, 0, -1)
+	http.SetCookie(w, cookieSessionID)
+
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
